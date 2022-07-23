@@ -4,7 +4,7 @@ import { IPaginatedState } from "../../../../types/IPaginatedState";
 import { ListUsersUseCase } from "./ListUsersUseCase";
 
 export class ListUsersController {
-  async handle(context: ParameterizedContext<IPaginatedState>): Promise<any> {
+  async handle(context: ParameterizedContext<IPaginatedState>): Promise<void> {
     const displayName = context.request.query.displayName as string | undefined;
     const email = context.request.query.email as string | undefined;
     const { limit, skip } = context.state;

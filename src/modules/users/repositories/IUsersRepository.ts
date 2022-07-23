@@ -11,4 +11,5 @@ export interface IUsersRepository {
   countByEmail(email: string): Promise<number>;
   countByEmailAndDifferentId(email: string, id: string): Promise<number>;
   findByEmail(email: string): Promise<IPublicUser | null>;
+  validateId(id: string): boolean;
 }

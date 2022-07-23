@@ -1,4 +1,4 @@
-import { Document, FilterQuery, Model, Query } from "mongoose";
+import { Document, FilterQuery, isValidObjectId, Model, Query } from "mongoose";
 import { injectable } from "tsyringe";
 import { IPublicUser, IUser } from "../../../../entities/IUser";
 import { IUsersRepository } from "../../../../repositories/IUsersRepository";
@@ -12,6 +12,9 @@ export class UsersRepository implements IUsersRepository {
 
   constructor() {
     this.model = UserModel;
+  }
+  validateId(id: string): boolean {
+    return isValidObjectId(id);
   }
 
   private generateFilterQuery({ displayName, email }: IListUsersRequestDTO): FilterQuery<IUser> {
@@ -53,8 +56,10 @@ export class UsersRepository implements IUsersRepository {
     return await query;
   }
 
-  findById(id: string): Promise<IPublicUser | null> {
-    throw new Error("Method not implemented.");
+  async findById(id: string): Promise<IPublicUser | null> {
+    return this.model
+      .findById(id)
+      .select('displayName email photoUrl birthDate')
   }
 
   update(): Promise<void> {
@@ -71,8 +76,12 @@ export class UsersRepository implements IUsersRepository {
     throw new Error("Method not implemented.");
   }
 
-  findByEmail(email: string): Promise<IPublicUser | null> {
-    throw new Error("Method not implemented.");
+  async findByEmail(email: string): Promise<IPublicUser | null> {
+    return this.model
+      .findOne({
+        email
+      })
+      .select('displayName email photoUrl birthDate')
   }
 
 }
