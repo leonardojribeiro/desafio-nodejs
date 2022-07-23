@@ -24,6 +24,10 @@ export class CreateUserUseCase {
     if (password.length < 6) {
       throw new CreateUserError.ShortPassword();
     }
+    const emailAlreadyExistsCount = await this.usersRepository.countByEmail(email);
+    if(emailAlreadyExistsCount){
+      throw new CreateUserError.UserEmailAlreadyExists()
+    }
     const hashPassword = await generateHash(password);
     await this.usersRepository.create({
       displayName,

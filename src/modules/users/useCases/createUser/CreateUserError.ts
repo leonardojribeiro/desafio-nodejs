@@ -21,7 +21,7 @@ export namespace CreateUserError {
       super('O campo "password" precisa ter pelo menos 6 caracteres.');
     }
   }
-  export class UserAlreadyExists extends AppError {
+  export class UserEmailAlreadyExists extends AppError {
     constructor() {
       super('Já existe outro usuário com o mesmo email.');
     }
