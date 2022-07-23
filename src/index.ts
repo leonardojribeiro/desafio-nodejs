@@ -1,35 +1,31 @@
+require('dotenv').config();
+import 'reflect-metadata';
 import Koa from 'koa';
-import Router from 'koa-router';
-import { usersRouter } from './routes/users.routes';
+import { router } from './routes';
+import koaBody from 'koa-body';
+import { setupDependencies } from './shared/container';
+import { errorHandler } from './shared/middlewares/ErrorHandler';
+import { connectToDatabase } from './databases/mongodb/connectToDatabase';
 
 const koa = new Koa();
-const router = new Router();
 
-// // //rota simples pra testar se o servidor está online
-// // router.get('/', async (ctx) => {
-// //   ctx.body = `Seu servidor esta rodando em http://localhost:${PORT}`; //http://localhost:3000/
-// // });
+setupDependencies();
 
-// // //Uma rota de exemplo simples aqui.
-// // //As rotas devem ficar em arquivos separados, /src/controllers/userController.js por exemplo
-// // router.get('/users', async (ctx) => {
-// //   ctx.status = 200;
-// //   ctx.body = { total: 0, count: 0, rows: [] }
-// // });
-koa.on('error', (err, context) => {
-  console.log('server error hahah', err, context);
-  context.status = 400;
-});
+connectToDatabase();
+
+koa.use(koaBody());
+
+koa.use(errorHandler);
 
 koa
-  .use(usersRouter.routes())
-  .use(usersRouter.allowedMethods());
-
+  .use(router.routes())
+  .use(router.allowedMethods());
 
 const PORT = process.env.PORT || 3000;
+
 const server = koa.listen(
   PORT,
   () => console.log(`Servidor ouvindo a porta ${PORT}`),
 );
 
-module.exports = server;
+export default server;

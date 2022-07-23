@@ -21,9 +21,12 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/developmentOneZero/fileteste#readme",
   "dependencies": {
+    "dotenv": "^16.0.1",
     "koa": "^2.13.0",
+    "koa-body": "^5.0.0",
     "koa-router": "^9.4.0",
     "mongoose": "^6.4.6",
+    "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.7.0"
   },
   "devDependencies": {

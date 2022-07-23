@@ -1,9 +1,8 @@
 import Router from "koa-router";
+import { CreateUserController } from "../modules/users/useCases/createUser/CreateUserController";
 
 export const usersRouter = new Router();
 
-usersRouter.post('/users', (context) => {
-  console.log(context);
-  context.body = 'olá';
-  throw new Error('teste');
-});
+const createUserController = new CreateUserController();
+
+usersRouter.post('/', createUserController.handle);
