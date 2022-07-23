@@ -39,7 +39,7 @@ export class UsersRepository implements IUsersRepository {
     const filterQuery = this.generateFilterQuery(data);
     const query = this.model
       .find(filterQuery)
-      .select('displayName email photoUrl');
+      .select('displayName email photoUrl birthDate');
     if (data.limit !== undefined && data.skip !== undefined) {
       query.skip(data.skip);
       query.limit(data.limit);

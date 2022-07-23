@@ -21,6 +21,21 @@ export namespace CreateUserError {
       super('O campo "password" precisa ter pelo menos 6 caracteres.');
     }
   }
+  export class EmptyBirthDate extends AppError {
+    constructor() {
+      super('O campo "birthDate" é obrigatório.');
+    }
+  }
+  export class InvalidBirthDate extends AppError {
+    constructor() {
+      super('O campo "birthDate" é inválido.');
+    }
+  }
+  export class Under18YearsOld extends AppError {
+    constructor() {
+      super('O usuário é menor de 18 anos.');
+    }
+  }
   export class UserEmailAlreadyExists extends AppError {
     constructor() {
       super('Já existe outro usuário com o mesmo email.');

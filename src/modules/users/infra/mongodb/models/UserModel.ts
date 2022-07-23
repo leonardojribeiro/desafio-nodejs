@@ -15,6 +15,10 @@ const usersSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
+  birthDate:{
+    type: Date,
+    required: true,
+  },
   photoUrl: {
     type: String,
   }

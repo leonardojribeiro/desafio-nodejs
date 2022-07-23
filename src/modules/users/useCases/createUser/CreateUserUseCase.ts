@@ -4,6 +4,8 @@ import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { CreateUserError } from "./CreateUserError";
 import { ICreateUserDTO } from "./ICreateUserDTO";
 
+import dayjs from "dayjs";
+
 @injectable()
 export class CreateUserUseCase {
   constructor(
@@ -11,7 +13,7 @@ export class CreateUserUseCase {
     private readonly usersRepository: IUsersRepository,
   ) { }
 
-  async execute({ displayName, email, password, photoUrl }: ICreateUserDTO): Promise<void> {
+  async execute({ displayName, email, password, photoUrl, birthDate }: ICreateUserDTO): Promise<void> {
     if (!displayName) {
       throw new CreateUserError.EmptyFullName();
     }
@@ -24,8 +26,18 @@ export class CreateUserUseCase {
     if (password.length < 6) {
       throw new CreateUserError.ShortPassword();
     }
+    if (!birthDate) {
+      throw new CreateUserError.EmptyBirthDate();
+    }
+    const birthDateParsed = dayjs(birthDate);
+    if (!birthDateParsed.isValid()) {
+      throw new CreateUserError.InvalidBirthDate();
+    }
+    if (birthDateParsed.isAfter(dayjs().subtract(18, 'year'))) {
+      throw new CreateUserError.Under18YearsOld();
+    }
     const emailAlreadyExistsCount = await this.usersRepository.countByEmail(email);
-    if(emailAlreadyExistsCount){
+    if (emailAlreadyExistsCount) {
       throw new CreateUserError.UserEmailAlreadyExists()
     }
     const hashPassword = await generateHash(password);
@@ -34,6 +46,7 @@ export class CreateUserUseCase {
       email,
       password: hashPassword,
       photoUrl,
+      birthDate: birthDateParsed.toDate(),
     });
   }
 }

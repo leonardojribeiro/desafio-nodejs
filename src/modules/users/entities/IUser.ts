@@ -4,6 +4,7 @@ export interface IUser{
   email: string;
   password: string;
   photoUrl: string;
+  birthDate: Date;
 }
 
 export interface IPublicUser{
@@ -11,4 +12,5 @@ export interface IPublicUser{
   displayName: string;
   email: string; 
   photoUrl: string;
+  birthDate: Date;
 }
