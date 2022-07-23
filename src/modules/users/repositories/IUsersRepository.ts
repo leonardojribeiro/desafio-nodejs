@@ -1,9 +1,11 @@
 import { IPublicUser } from "../entities/IUser";
 import { ICreateUserDTO } from "../useCases/createUser/ICreateUserDTO";
+import { IListUsersRequestDTO } from "../useCases/listUsers/IListUsersRequestDTO";
 
 export interface IUsersRepository {
   create(data: ICreateUserDTO): Promise<void>;
-  find(): Promise<IPublicUser[]>;
+  find(data: IListUsersRequestDTO): Promise<IPublicUser[]>;
+  count(data: IListUsersRequestDTO): Promise<number>
   findById(id: string): Promise<IPublicUser | null>;
   update(): Promise<void>;
   countByEmail(email: string): Promise<number>;

@@ -4,7 +4,7 @@ import Koa from 'koa';
 import { router } from './routes';
 import koaBody from 'koa-body';
 import { setupDependencies } from './shared/container';
-import { errorHandler } from './shared/middlewares/ErrorHandler';
+import { errorHandler } from './shared/middlewares/errorHandler';
 import { connectToDatabase } from './databases/mongodb/connectToDatabase';
 
 const koa = new Koa();

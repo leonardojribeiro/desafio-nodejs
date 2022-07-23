@@ -7,9 +7,16 @@ export async function errorHandler(context: Context, next: Next) {
   }
   catch (err) {
     if (err instanceof AppError) {
-      console.log(err)
-      context.status = err.statusCode;
-      context.body = { "message": err.message };
+      context.response.status = err.statusCode;
+      context.response.body = {
+        "message": err.message
+      };
+    }
+    else {
+      context.response.status = 500;
+      context.response.body = {
+        "message": "Ocorreu um erro desconhecido."
+      };
     }
   }
 }
