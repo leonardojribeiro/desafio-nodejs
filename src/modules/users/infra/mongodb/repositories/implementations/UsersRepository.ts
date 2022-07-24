@@ -14,6 +14,13 @@ export class UsersRepository implements IUsersRepository {
   constructor() {
     this.model = UserModel;
   }
+
+  async delete(id: string): Promise<void> { 
+    await this.model.deleteOne({
+      _id: id
+    });
+  }
+
   validateId(id: string): boolean {
     return isValidObjectId(id);
   }
@@ -85,13 +92,4 @@ export class UsersRepository implements IUsersRepository {
       email,
     })
   }
-
-  async findByEmail(email: string): Promise<IPublicUser | null> {
-    return this.model
-      .findOne({
-        email
-      })
-      .select('displayName email photoUrl birthDate')
-  }
-
 }

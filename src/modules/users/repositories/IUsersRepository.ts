@@ -4,13 +4,13 @@ import { IListUsersRequestDTO } from "../useCases/listUsers/IListUsersRequestDTO
 import { IUpdateUserDTO } from "../useCases/updateUser/IUpdateUserDTO";
 
 export interface IUsersRepository {
+  delete(id: string): Promise<void>;
   create(data: ICreateUserDTO): Promise<void>;
   find(data: IListUsersRequestDTO): Promise<IPublicUser[]>;
   count(data: IListUsersRequestDTO): Promise<number>
   findById(id: string): Promise<IPublicUser | null>;
   update(data: IUpdateUserDTO): Promise<void>;
   countByEmail(email: string): Promise<number>;
-  countByEmailAndDifferentId(email: string, id: string): Promise<number>;
-  findByEmail(email: string): Promise<IPublicUser | null>;
+  countByEmailAndDifferentId(email: string, id: string): Promise<number>; 
   validateId(id: string): boolean;
 }
