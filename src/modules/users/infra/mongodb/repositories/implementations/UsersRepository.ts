@@ -4,6 +4,7 @@ import { IPublicUser, IUser } from "../../../../entities/IUser";
 import { IUsersRepository } from "../../../../repositories/IUsersRepository";
 import { ICreateUserDTO } from "../../../../useCases/createUser/ICreateUserDTO";
 import { IListUsersRequestDTO } from "../../../../useCases/listUsers/IListUsersRequestDTO";
+import { IUpdateUserDTO } from "../../../../useCases/updateUser/IUpdateUserDTO";
 import { UserModel } from "../../models/UserModel";
 
 @injectable()
@@ -62,8 +63,12 @@ export class UsersRepository implements IUsersRepository {
       .select('displayName email photoUrl birthDate')
   }
 
-  update(): Promise<void> {
-    throw new Error("Method not implemented.");
+  async update(data: IUpdateUserDTO): Promise<void> {
+    await this.model.updateOne({
+      _id: data.id
+    }, {
+      $set: data,
+    });
   }
 
   async countByEmail(email: string): Promise<number> {
@@ -72,8 +77,13 @@ export class UsersRepository implements IUsersRepository {
     });
   }
 
-  countByEmailAndDifferentId(email: string, id: string): Promise<number> {
-    throw new Error("Method not implemented.");
+  async countByEmailAndDifferentId(email: string, id: string): Promise<number> {
+    return await this.model.count({
+      _id: {
+        $ne: id,
+      },
+      email,
+    })
   }
 
   async findByEmail(email: string): Promise<IPublicUser | null> {
