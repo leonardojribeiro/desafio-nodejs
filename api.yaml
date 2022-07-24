@@ -1,11 +1,14 @@
-openapi: "3.0.0"
+swagger: "2.0"
 info:
   title: "Desafio Node.js - Documentação"
   description: "Esta é a documentação da API desenvolvida durante o desafio."
   version: "1.0.0"
   contact:
-    - email: "leonardojr410@gmail.com"
-    - telephone: "+5562993063269"
+    telephone: "+5562993063269"
+    email: "leonardojr410@gmail.com"
+tags: 
+  - name: "Usuários"
+    description: "Operações dos usuários"
 paths:
   /users:
     post:
@@ -43,11 +46,69 @@ paths:
           in: "query"
       responses:
         200:
-          description: "sucesso"
+          description: "Sucesso"
           content:
             application/json:
               schema:
                 $ref: "#/definitions/FindUsersResponse"
+  /users/{id}:
+    get:
+      tags:
+        - "Usuários"
+      summary: "Listar usuário por id"
+      description: "Lista o usuário pelo o id informado"
+      parameters:
+        - name: "id"
+          description: "O id do usuário a ser consultado"
+          in: "path"
+      responses:
+        200:
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/User"
+        404:
+          description: "Usuário não encontrado"
+        400:
+          description: "Id inválido"
+    patch:
+      tags:
+        - "Usuários"
+      summary: "Alterar usuário por id"
+      description: "Altera as informações do usuário através de seu id"
+      parameters:
+        - name: "id"
+          description: "O id do usuário a ser alterado"
+          in: "path"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/UpdateUser"
+      responses:
+        200:
+          description: "Sucesso"
+        404:
+          description: "Usuário não encontrado"
+        400:
+          description: "Erro de validação"
+    delete:
+      tags:
+        - "Usuários"
+      summary: "Deletar usuário por id"
+      description: "Deleta o usuário através de seu id"
+      parameters:
+        - name: "id"
+          description: "O id do usuário a ser deletado"
+          in: "path"
+      responses:
+        204:
+          description: "Sucesso"
+        404:
+          description: "Usuário não encontrado"
+        400:
+          description: "Id inválido"
 definitions:
   CreateUser:
     type: "object"
@@ -82,7 +143,7 @@ definitions:
         description: "A quantidade total de usuário que satisfazeram a pesquisa"
       users:
         type: "array"
-        items: 
+        items:
           $ref: "#/definitions/User"
   User:
     type: "object"
@@ -99,6 +160,27 @@ definitions:
       birthDate:
         type: "string"
         description: "A data de nascimento do usuário"
+      photoUrl:
+        type: "string"
+        description: "A foto do usuário"
+  UpdateUser:
+    type: "object"
+    properties:
+      displayName:
+        type: "string"
+        description: "O nome do usuário"
+        example: "Leonardo Jardim Ribeiro"
+      email:
+        type: "string"
+        description: "O email do usuário (deve ser único)"
+        example: "leonardojr410@gmail.com"
+      password:
+        type: "string"
+        description: "A senha do usuário (deve ter pelo menos 6 caracteres)"
+      birthDate:
+        type: "string"
+        description: "A data de nascimento do usuário (deve estar no formato ISO 8601 e o tempo entre ela e a data atual de 18 anos)"
+        example: "1998-06-25"
       photoUrl:
         type: "string"
         description: "A foto do usuário"
