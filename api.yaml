@@ -16,11 +16,13 @@ paths:
         - "Usuários"
       summary: "Criar um usuário"
       description: "Cria um usuário"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/definitions/CreateUser"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Informações do usuário"
+          required: true 
+          schema:
+            $ref: "#/definitions/CreateUser"
       responses:
         201:
           description: "Usuário criado"
@@ -61,6 +63,7 @@ paths:
         - name: "id"
           description: "O id do usuário a ser consultado"
           in: "path"
+          required: true
       responses:
         200:
           description: "Sucesso"
@@ -81,11 +84,13 @@ paths:
         - name: "id"
           description: "O id do usuário a ser alterado"
           in: "path"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/definitions/UpdateUser"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Informações do usuário que serão alteradas"
+          required: true 
+          schema:
+            $ref: "#/definitions/UpdateUser"
       responses:
         200:
           description: "Sucesso"
@@ -102,6 +107,7 @@ paths:
         - name: "id"
           description: "O id do usuário a ser deletado"
           in: "path"
+          required: true
       responses:
         204:
           description: "Sucesso"
