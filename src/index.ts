@@ -6,6 +6,9 @@ import koaBody from 'koa-body';
 import { setupDependencies } from './shared/container';
 import { errorHandler } from './shared/middlewares/errorHandler';
 import { connectToDatabase } from './databases/mongodb/connectToDatabase';
+import { koaSwagger } from 'koa2-swagger-ui';
+import yamljs from 'yamljs';
+import path from 'path';
 
 const koa = new Koa();
 
@@ -16,6 +19,15 @@ connectToDatabase();
 koa.use(koaBody());
 
 koa.use(errorHandler);
+
+const spec = yamljs.load(path.resolve(__dirname, '..', 'api.yaml'));
+
+koa.use(koaSwagger({
+  routePrefix: '/',
+  swaggerOptions: {
+    spec
+  }
+}));
 
 koa
   .use(router.routes())

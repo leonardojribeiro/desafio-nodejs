@@ -1,0 +1,104 @@
+openapi: "3.0.0"
+info:
+  title: "Desafio Node.js - Documentação"
+  description: "Esta é a documentação da API desenvolvida durante o desafio."
+  version: "1.0.0"
+  contact:
+    - email: "leonardojr410@gmail.com"
+    - telephone: "+5562993063269"
+paths:
+  /users:
+    post:
+      tags:
+        - "Usuários"
+      summary: "Criar um usuário"
+      description: "Cria um usuário"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/CreateUser"
+      responses:
+        201:
+          description: "Usuário criado"
+        400:
+          description: "Erro de validação"
+    get:
+      tags:
+        - "Usuários"
+      summary: "Listar usuários"
+      description: "Lista todos os usuários"
+      parameters:
+        - name: "displayName"
+          description: 'Lista os usuários que tem o texto informado no campo "displayName"'
+          in: "query"
+        - name: "email"
+          description: 'Lista os usuários que tem o texto informado no campo "email"'
+          in: "query"
+        - name: "page"
+          description: 'Número da página (deve ser usada junto com o "limit" e ser maior que 0)'
+          in: "query"
+        - name: "limit"
+          description: 'Limite de usuários retornados (deve ser usada junto com a "page" e ser maior que 0)'
+          in: "query"
+      responses:
+        200:
+          description: "sucesso"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/FindUsersResponse"
+definitions:
+  CreateUser:
+    type: "object"
+    properties:
+      displayName:
+        type: "string"
+        description: "O nome do usuário"
+        example: "Leonardo Jardim Ribeiro"
+        required: true
+      email:
+        type: "string"
+        description: "O email do usuário (deve ser único)"
+        example: "leonardojr410@gmail.com"
+        required: true
+      password:
+        type: "string"
+        description: "A senha do usuário (deve ter pelo menos 6 caracteres)"
+        required: true
+      birthDate:
+        type: "string"
+        description: "A data de nascimento do usuário (deve estar no formato ISO 8601 e o tempo entre ela e a data atual de 18 anos)"
+        example: "1998-06-25"
+        required: true
+      photoUrl:
+        type: "string"
+        description: "A foto do usuário"
+  FindUsersResponse:
+    type: "object"
+    properties:
+      usersCount:
+        type: "integer"
+        description: "A quantidade total de usuário que satisfazeram a pesquisa"
+      users:
+        type: "array"
+        items: 
+          $ref: "#/definitions/User"
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "O id do usuário"
+      displayName:
+        type: "string"
+        description: "O nome do usuário"
+      email:
+        type: "string"
+        description: "O email do usuário"
+      birthDate:
+        type: "string"
+        description: "A data de nascimento do usuário"
+      photoUrl:
+        type: "string"
+        description: "A foto do usuário"
