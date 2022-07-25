@@ -20,6 +20,7 @@ services:
       - 3000:3000
     volumes:
       - .:/usr/application
+      - /usr/application/node_modules
     links:
       - mongodb
 volumes:
