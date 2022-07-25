@@ -38,7 +38,7 @@ Execute o comando ```npm run start``` no seu terminal.
 ### Executar com docker-compose
 
 1. Transpile o código fonte para produção através do comando ```npm run build``` no seu terminal.
-2. Execute o comando ```docker compose up``` no seu terminal.
+2. Execute o comando ```docker compose up -d``` no seu terminal.
 
 ## Como acessar? 
 
