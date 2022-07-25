@@ -42,4 +42,4 @@ Execute o comando ```npm run start``` no seu terminal.
 
 ## Como acessar? 
 
-Acesse a versão de produção [GCP](https://desafionode-dot-global-leo.rj.r.appspot.com/)[AWS](http://ec2-18-231-8-203.sa-east-1.compute.amazonaws.com/).
+Acesse a versão de produção [GCP](https://desafionode-dot-global-leo.rj.r.appspot.com/) [AWS](http://ec2-18-231-8-203.sa-east-1.compute.amazonaws.com/).
