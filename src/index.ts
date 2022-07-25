@@ -7,10 +7,12 @@ import { setupDependencies } from './shared/container';
 import { errorHandler } from './shared/middlewares/errorHandler';
 import { connectToDatabase } from './databases/mongodb/connectToDatabase';
 import { swaggerDocs } from './shared/middlewares/swaggerDocs';
+import { rateLimiter } from './shared/middlewares/rateLimiter';
 
 const koa = new Koa();
 setupDependencies();
 connectToDatabase();
+koa.use(rateLimiter());
 koa.use(koaBody());
 koa.use(errorHandler);
 koa.use(swaggerDocs());
