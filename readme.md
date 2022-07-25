@@ -39,3 +39,7 @@ Execute o comando ```npm run start``` no seu terminal.
 
 1. Transpile o código fonte para produção através do comando ```npm run build``` no seu terminal.
 2. Execute o comando ```docker compose up``` no seu terminal.
+
+## Como acessar? 
+
+Acesse a versão de produção [GCP](https://desafionode-dot-global-leo.rj.r.appspot.com/)[AWS](http://ec2-18-231-8-203.sa-east-1.compute.amazonaws.com/).
