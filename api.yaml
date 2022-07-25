@@ -28,6 +28,8 @@ paths:
           description: "Usuário criado"
         400:
           description: "Erro de validação"
+        429:
+          description: "Limite de requisições em um determinado período"
     get:
       tags:
         - "Usuários"
@@ -53,6 +55,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/definitions/FindUsersResponse"
+        429:
+          description: "Limite de requisições em um determinado período"
   /users/{id}:
     get:
       tags:
@@ -75,6 +79,8 @@ paths:
           description: "Usuário não encontrado"
         400:
           description: "Id inválido"
+        429:
+          description: "Limite de requisições em um determinado período"
     patch:
       tags:
         - "Usuários"
@@ -98,6 +104,8 @@ paths:
           description: "Usuário não encontrado"
         400:
           description: "Erro de validação"
+        429:
+          description: "Limite de requisições em um determinado período"
     delete:
       tags:
         - "Usuários"
@@ -115,6 +123,8 @@ paths:
           description: "Usuário não encontrado"
         400:
           description: "Id inválido"
+        429:
+          description: "Limite de requisições em um determinado período"
 definitions:
   CreateUser:
     type: "object"

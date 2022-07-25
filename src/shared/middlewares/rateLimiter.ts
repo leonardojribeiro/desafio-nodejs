@@ -1,4 +1,4 @@
-import { Middleware } from "koa";
+import { Context, Middleware } from "koa";
 
 import ratelimit from 'koa-ratelimit';
 
@@ -10,7 +10,7 @@ export function rateLimiter(): Middleware {
     db: db,
     duration: 5000,
     errorMessage: 'Você atingiu o limite de requisições em um determinado período.',
-    id: (ctx) => ctx.ip,
+    id: (ctx: Context) => ctx.ip,
     headers: {
       remaining: 'Rate-Limit-Remaining',
       reset: 'Rate-Limit-Reset',
