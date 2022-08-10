@@ -8,10 +8,14 @@ import { errorHandler } from './shared/middlewares/errorHandler';
 import { connectToDatabase } from './databases/mongodb/connectToDatabase';
 import { swaggerDocs } from './shared/middlewares/swaggerDocs';
 import { rateLimiter } from './shared/middlewares/rateLimiter';
+import cors from '@koa/cors';
 
 const koa = new Koa();
 setupDependencies();
 connectToDatabase();
+koa.use(cors({
+  origin: '*', 
+}));
 koa.use(rateLimiter());
 koa.use(koaBody());
 koa.use(errorHandler);
